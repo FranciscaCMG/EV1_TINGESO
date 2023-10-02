@@ -1,9 +1,6 @@
 package cl.usach.tingeso.ev1.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "estudiante")
@@ -17,6 +14,21 @@ public class EstudianteEntity {
     private String tipoColegioP;
     private String nombreColegio;
     private Integer anioEgreso;
+
+    @ManyToOne
+    @JoinColumn(name = "id_matricula")
+    private MatriculaEntity matricula;
+
+
+    public void showEstudiante(EstudianteEntity estudiante){
+        System.out.println("Rut: " + estudiante.getRut());
+        System.out.println("Apellidos: " + estudiante.getApellidos());
+        System.out.println("Nombres: " + estudiante.getNombres());
+        System.out.println("Fecha de nacimiento: " + estudiante.getFechanacimiento());
+        System.out.println("Tipo de colegio: " + estudiante.getTipoColegioP());
+        System.out.println("Nombre de colegio: " + estudiante.getNombreColegio());
+        System.out.println("Año de egreso: " + estudiante.getAnioEgreso());
+    }
 
     public String getRut() {
         return rut;
@@ -72,5 +84,13 @@ public class EstudianteEntity {
 
     public void setAnioEgreso(Integer anioEgreso) {
         this.anioEgreso = anioEgreso;
+    }
+
+    public MatriculaEntity getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(MatriculaEntity matricula) {
+        this.matricula = matricula;
     }
 }
