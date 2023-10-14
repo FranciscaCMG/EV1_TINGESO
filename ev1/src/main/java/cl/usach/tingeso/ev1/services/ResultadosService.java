@@ -22,6 +22,7 @@ import java.util.List;
 public class ResultadosService {
     @Autowired
     ResultadosRepository resultadosRepository;
+
     private final Logger logg = LoggerFactory.getLogger(ResultadosService.class);
 
     public List<ResultadosEntity> obtenerResultados() { return resultadosRepository.findAll(); }
@@ -55,7 +56,6 @@ public class ResultadosService {
         String texto = "";
         BufferedReader bf = null;
 
-        resultadosRepository.deleteAll();
         try{
             bf = new BufferedReader(new FileReader(direccion));
             String temp = "";
@@ -83,7 +83,9 @@ public class ResultadosService {
                 }
             }
         }
+
     }
+
 
     public void guardarDataDB(String rut, String fecha, String puntaje){
         ResultadosEntity newData = new ResultadosEntity();

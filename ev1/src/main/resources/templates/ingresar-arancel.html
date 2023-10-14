@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Agregar Estudiante</title>
+    <title>Agregar Arancel</title>
     <link  rel="stylesheet"
            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -111,34 +111,25 @@
     <a class="btn" href="/"><button>Volver al menu principal</button></a>
 </header>
 <div class = "mainclass">
-    <form  th:action="@{/estudiante/agregar-estudiante}" method="POST">
+    <form  th:action="@{/arancel/agregar-arancel}" method="POST">
         <h2>Registrar nuevo Estudiante</h2>
         <div class="formcontainer">
             <hr/>
             <div class="container">
                 <label><strong>Rut</strong></label>
-                <input type="text" id = "rut"
-                       placeholder="Ingrese el rut del estudiante" name="rut" required>
-                <label><strong>Apellidos</strong></label>
-                <input type="text" id = "apellidos"
-                       placeholder="Ingrese los apellidos del estudiante" name="apellidos" required>
-                <label><strong>Nombres</strong></label>
-                <input type="text" id = "nombres"
-                       placeholder="Ingrese los nombres del estudiante" name="nombres" required>
-                <label><strong>Fecha de Nacimiento</strong></label>
-                <input type="text" id = "fechanacimiento"
-                       placeholder="Ingrese la fecha de nacimiento del estudiante" name="fechanacimiento" required>
-                <label><strong>Tipo Colegio Precedencia</strong></label>
-                <input type="text" id = "tipoColegioP"
-                       placeholder="Ingrese el colegio de precedencia del estudiante" name="tipoColegioP" required>
-                <label><strong>Nombre Colegio</strong></label>
-                <input type="text" id = "nombreColegio"
-                       placeholder="Ingrese el nombre del colegio de precedencia del estudiante" name="nombreColegio" required>
-                <label><strong>Año De Egreso</strong></label>
-                <input type="text" id = "anioEgreso"
-                       placeholder="Ingrese el año de egreso del estudiante" name="anioEgreso" required>
+                <input type="text" id = "rutEstudiante"
+                       placeholder="Ingrese el rut del estudiante" name="rutEstudiante" required>
+                <label><strong>Monto Arancel</strong></label>
+                <input type="text" id = "monto"
+                       placeholder="Ingrese el monto del Arancel" name="monto" required>
+                <label><strong>Tipo de Pago</strong></label>
+                <input type="text" id = "tipoPago"
+                       placeholder="Ingrese el tipo de pago" name="tipoPago" required>
+                <label><strong>Cantidad de Cuotas</strong></label>
+                <input type="text" id = "cantidadCuotas"
+                       placeholder="Ingrese la cantidad de Cuotas" name="cantidadCuotas" required>
             </div>
-            <button type="submit">Registrar Estudiante</button>
+            <button type="submit">Registrar Arancel</button>
         </div>
     </form>
 </div>

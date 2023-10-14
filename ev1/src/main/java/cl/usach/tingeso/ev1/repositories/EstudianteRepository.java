@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EstudianteRepository extends JpaRepository<EstudianteEntity, String> {
+        EstudianteEntity findByRut(String rut);
 
 }

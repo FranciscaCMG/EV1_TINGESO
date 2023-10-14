@@ -93,34 +93,38 @@
     <nav>
     </nav>
     <a class="btn" href="/"><button>Volver al menu principal</button></a>
-    <a class="btn-2" href="/estudiante/agregar-estudiante"><button>Ingresar nuevo Estudiante</button></a>
+    <a class="btn-2" href="/arancel/agregar-arancel"><button>Ingresar nuevo Arancel</button></a>
 </header>
-<div th:align = "center" class = "container my-2">
+<div th:align = "center" class = "container my-2" >
 
-    <h2> Listado de Estudiantes</h2>
+    <h2> Listado de Aranceles</h2>
     <table th:border = "1" class = "content-table">
         <thead>
         <tr>
             <th>Rut</th>
-            <th>Apellidos</th>
-            <th>Nombres</th>
-            <th>Fecha de Nacimiento</th>
-            <th>Tipo Colegio de Procedencia</th>
-            <th>Nombre Colegio</th>
-            <th>Año Egreso de Colegio</th>
+            <th>Monto</th>
+            <th>Tipo de Pago</th>
+            <th>Cantidad de Cuotas</th>
+            <th>Generar Cuotas</th>
+
+
         </tr>
         </thead>
         <tbody>
-        <tr th:each="estudiantes:${estudiantes}">
-            <td th:text="${estudiantes.rut}"></td>
-            <td th:text="${estudiantes.apellidos}"></td>
-            <td th:text="${estudiantes.nombres}"></td>
-            <td th:text="${estudiantes.fechanacimiento}"></td>
-            <td th:text="${estudiantes.tipoColegioP}"></td>
-            <td th:text="${estudiantes.nombreColegio}"></td>
-            <td th:text="${estudiantes.anioEgreso}"></td>
+        <tr th:each="aranceles:${aranceles}">
+            <td th:text="${aranceles.rutEstudiante}"></td>
+            <td th:text="${aranceles.monto}"></td>
+            <td th:text="${aranceles.tipoPago}"></td>
+            <td th:text="${aranceles.cantidadCuotas}"></td>
+            <td><a href="/cuotas/listar"><button type="button" class="btn btn-primary">Ver Cuotas</button></a></td>
+
         </tr>
+
         </tbody>
+    </table>
+    <table>
+
+
     </table>
 </div>
 </body>

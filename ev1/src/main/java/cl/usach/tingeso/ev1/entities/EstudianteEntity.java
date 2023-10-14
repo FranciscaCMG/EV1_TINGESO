@@ -22,4 +22,6 @@ public class EstudianteEntity {
     private String tipoColegioP;
     private String nombreColegio;
     private Integer anioEgreso;
+    private Integer examenesRendidos;
+    private Integer promedio;
 }

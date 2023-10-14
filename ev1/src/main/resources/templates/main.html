@@ -5,6 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top Education</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bevan:ital@0;1&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quando&display=swap" rel="stylesheet">
+
+    <link rel = "stylesheet" href= "../static/navbar.css" type="text/css" th:href="@{/navbar.css}">
 
 
 
@@ -40,20 +49,29 @@
             align-items: center;
             width: 80px;
             height: 80px;
-            border: 6px solid #ddd;
+            border: 6px solid #78D6C6;
             border-radius: 50%;
             padding: 20px;
             -webkit-background-size: cover;
             background-size: cover;
             background-position: center center;
         }
+        h1 {
+            font-size: 40px;
+            text-align:center;
+            margin-right: auto;
+            color: #ffffff;
+            font-family: 'Bevan',serif;
+        }
 
         .single-box:nth-child(1) .img-area{
-            background-image: url(https://img.freepik.com/vector-premium/chat-archivo-documento-texto-comentando-o-editando-documentos-linea-ilustracion-dibujos-animados-plana_101884-838.jpg)
+            background-image: url(https://www.pngmart.com/files/23/Document-PNG.png)
         }
+
         .single-box:nth-child(2) .img-area{
-            background-image: url(http://static1.squarespace.com/static/55c7a3e2e4b0fa365689d8aa/55e0aceae4b0643202e59629/55e322ade4b077beb0266329/1590769127854/?format=1500w)
+            background-image: url(https://www.pngmart.com/files/23/User-PNG-Isolated-Image.png)
         }
+
         .single-box:nth-child(3) .img-area{
             background-image: url(https://img.freepik.com/vector-gratis/ingresos-netos-calculando-ilustracion-concepto-abstracto-calculo-sueldos-formula-ingresos-netos-salario-neto-contabilidad-corporativa-calculo-ganancias-estimacion-ganancias_335657-1238.jpg?w=2000)
         }
@@ -64,9 +82,10 @@
             background-image: url(https://media.istockphoto.com/vectors/agreement-contract-and-offer-color-line-icon-proposal-linear-vector-vector-id1271477227?k=20&m=1271477227&s=612x612&w=0&h=XOSF2ISnfGJZ7bb-fU7rRdDJzTKehDmOF9kcJ5gIEmA=)
         }
         .header-text{
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 500;
             line-height: 48px;
+            font-family: 'Quando', serif;
         }
         .img-text p{
             font-size: 15px;
@@ -74,12 +93,25 @@
             line-height: 30px;
         }
         .single-box:hover{
-            background: #F1C40F;
+            background: #78D6C6;
             color: #fff;}
+
+        .header{
+            justify-content: center;
+        }
+        .header{
+            margin-right: auto;
+            color: white;
+            font-family: 'Bevan',serif;
+        }
     </style>
 </head>
 <body>
-<h1 align = center style="color: #c70039"> <b1>Top Education</b1></h1>
+<header class="header">
+    <div>
+        <h1>Top Education</h1>
+    </div>
+</header>
 <div class = "box-area">
     <div class = "single-box">
         <a href = "/resultados/fileUpload">
@@ -87,7 +119,7 @@
             </div>
         </a>
         <div class = "img-text">
-            <span class = "header-text"><strong>Cargar CSV Acopio</strong></span>
+            <span class = "header-text"><strong>Cargar CSV Resultados</strong></span>
         </div>
     </div>
     <div class = "single-box">
@@ -102,16 +134,16 @@
 </div>
 <div class = "box-area">
     <div class = "single-box">
-        <a href = "/laboratorio/fileUpload">
+        <a href = "/arancel/listar">
             <div class = "img-area">
             </div>
         </a>
         <div class = "img-text">
-            <span class = "header-text"><strong>Cargar CSV Laboratorio </strong></span>
+            <span class = "header-text"><strong>Ver Arancel </strong></span>
         </div>
     </div>
     <div class = "single-box">
-        <a href = "/planilla/ingresar-proveedor">
+        <a href = "/arancel/listar">
             <div class = "img-area">
             </div>
         </a>
@@ -122,6 +154,6 @@
 </div>
 
 
-<h6 align = center style="color: #FF5733"> USACH 2023</h6>
+<h6 align = center style="color: #78D6C6"> CHILE 2023</h6>
 </body>
 </html>

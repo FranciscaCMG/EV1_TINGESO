@@ -1,3 +1,4 @@
+
 .header{
     background-color: #1b3039;
     display: flex;
@@ -9,12 +10,12 @@
 .header .logo{
     margin-right: auto;
     color: white;
-    font-family: 'Comic Sans MS',serif;
+    font-family: 'Bevan',serif;
 }
 .header .btn button{
     margin-left: 20px;
     font-weight: 700;
-    color: #1b3039;
+    color: #12486B;
     padding: 9px 25px;
     background: #eceff1;
     border: none;
@@ -24,6 +25,6 @@
 }
 .header .btn button:hover{
     background-color: #e2f1f8;
-    color: #ffbc0e;
+    color: #419197;
     transform: scale(1.1);
 }
