@@ -91,7 +91,17 @@ public class ArancelService {
         arancel.setMonto(monto);
 
         arancel.setTipoPago(tipoPago);
-        arancel.setCantidadCuotas(cantidadCuotas);
+        if (tipoPago.equals("Contado")){
+            cantidadCuotas = 1;
+            arancel.setCantidadCuotas(cantidadCuotas);
+        }
+        else{
+            switch (estudiante.getTipoColegioP()) {
+                case "Municipal" -> arancel.setCantidadCuotas(Math.min(cantidadCuotas, 10));
+                case "Subvencionado" -> arancel.setCantidadCuotas(Math.min(cantidadCuotas, 7));
+                case "Particular" -> arancel.setCantidadCuotas(Math.min(cantidadCuotas, 4));
+            }
+        }
         arancelRepository.save(arancel);
     }
 
@@ -103,5 +113,17 @@ public class ArancelService {
         else{
             return true;
         }
+    }
+
+    public boolean existeArancel(String rut){
+
+        ArancelEntity arancel = arancelRepository.findByRutEstudiante(rut);
+        if (arancel == null){
+            return false;
+        }
+        else{
+            return true;
+        }
+
     }
 }

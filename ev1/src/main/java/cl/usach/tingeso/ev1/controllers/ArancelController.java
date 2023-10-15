@@ -43,14 +43,23 @@ public class ArancelController {
 
         if(!arancelService.existeRutEnBaseDeDatos(rutEstudiante)){
             redirectAttributes.addFlashAttribute("mensaje", "El usuario ingresado no existe, por favor ingrese un rut valido");
-            return "redirect:/arancel/listar";
+
         }
         else{
-            arancelService.guardarArancel(rutEstudiante, monto, tipoPago, cantidadCuotas);
-            redirectAttributes.addFlashAttribute("mensaje", "El Arancel se ha creado correctamente! :)");
 
-            return "redirect:/arancel/listar";
+            if (arancelService.existeArancel(rutEstudiante)){
+                redirectAttributes.addFlashAttribute("mensaje", "El usuario ingresado ya tiene un arancel asociado, por favor ingrese un rut valido");
+            }
+            else{
+                arancelService.guardarArancel(rutEstudiante, monto, tipoPago, cantidadCuotas);
+                redirectAttributes.addFlashAttribute("mensaje", "El Arancel se ha creado correctamente! :)");
+            }
+
+
+
         }
+
+        return "redirect:/arancel/listar";
 
     }
 

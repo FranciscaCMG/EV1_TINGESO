@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ArancelRepository extends JpaRepository<ArancelEntity, Integer>{
+    ArancelEntity findByRutEstudiante(String rutEstudiante);
 }

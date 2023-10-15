@@ -51,7 +51,7 @@ public class CuotaService {
             cuotaEntity.setRutEstudiante(rut);
             cuotaEntity.setNroCuota(nroCuota);
             cuotaEntity.setValorCuota(valor);
-            cuotaEntity.setFechaVencimiento("05-"+ String.valueOf(nroCuota+9) + "-2023");
+            cuotaEntity.setFechaVencimiento("2023-"+ String.valueOf(nroCuota+2) +"-05" ); // Fecha inicio clases
             cuotaEntity.setFechaPago(fechaP);
             cuotaEntity.setEstado(estado);
             cuotaRepository.save(cuotaEntity);
@@ -66,11 +66,20 @@ public class CuotaService {
 
     public void pagarCuota(Integer idCuota) {
         CuotaEntity cuota = cuotaRepository.findById(idCuota).get();
+        String fechaVenci= cuota.getFechaVencimiento();
+
         Date fecha = new Date();
         // Crear un formato de fecha
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         cuota.setFechaPago(formato.format(fecha));
-        cuota.setEstado("Pagada");
-        cuotaRepository.save(cuota);
+
+        if (cuota.getFechaPago() != null) {
+            if (cuota.getFechaPago().compareTo(fechaVenci) > 0) {
+                cuota.setEstado("Atrasada");
+            } else {
+                cuota.setEstado("Pagada");
+            }
+            cuotaRepository.save(cuota);
+        }
     }
 }
