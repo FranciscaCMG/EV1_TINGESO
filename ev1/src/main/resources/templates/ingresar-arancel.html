@@ -104,7 +104,7 @@
         }
 
         a:hover {
-            color: #ffffff;
+            color: #6499E9;
             text-decoration: none;
         }
     </style>
@@ -120,7 +120,7 @@
 </header>
 <div class = "mainclass">
     <form  th:action="@{/arancel/agregar-arancel}" method="POST">
-        <h2>Registrar nuevo Estudiante</h2>
+        <h2>Registrar nuevo Arancel</h2>
         <div class="formcontainer">
             <hr/>
             <div class="container">
@@ -139,6 +139,8 @@
             </div>
             <button type="submit">Registrar Arancel</button>
         </div>
+        <br>
+        <b> <h3 th:text="${mensaje}"></h3></b>
     </form>
 </div>
 </body>

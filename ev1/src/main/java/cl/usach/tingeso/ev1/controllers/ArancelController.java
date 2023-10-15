@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 
 @Controller
@@ -35,16 +37,21 @@ public class ArancelController {
     public String nuevoArancel(@RequestParam("rutEstudiante") String rutEstudiante,
                                @RequestParam("monto") Integer monto,
                                @RequestParam("tipoPago") String tipoPago,
-                               @RequestParam("cantidadCuotas") Integer cantidadCuotas){
+                               @RequestParam("cantidadCuotas") Integer cantidadCuotas, RedirectAttributes redirectAttributes){
 
-        arancelService.guardarArancel(rutEstudiante, monto, tipoPago, cantidadCuotas);
-        return "redirect:/arancel/listar";
+        System.out.println(rutEstudiante);
+
+        if(!arancelService.existeRutEnBaseDeDatos(rutEstudiante)){
+            redirectAttributes.addFlashAttribute("mensaje", "El usuario ingresado no existe, por favor ingrese un rut valido");
+            return "redirect:/arancel/listar";
+        }
+        else{
+            arancelService.guardarArancel(rutEstudiante, monto, tipoPago, cantidadCuotas);
+            redirectAttributes.addFlashAttribute("mensaje", "El Arancel se ha creado correctamente! :)");
+
+            return "redirect:/arancel/listar";
+        }
+
     }
-
-
-    /*
-        EstudianteEntity estudiante = estudianteService.obtenerEstudiantePorRut(rut);
-        arancelService.crearArancel(rut, tipoColegioP, estudiante);
-     */
 
 }

@@ -77,8 +77,11 @@ public class ArancelService {
 
 
     public void guardarArancel(String rut, Integer monto, String tipoPago, Integer cantidadCuotas){
+        System.out.println("entre al guardar arancel");
         Integer descuento = 0;
         EstudianteEntity estudiante = estudianteService.obtenerEstudiantePorRut(rut);
+
+        System.out.println("obtuve el estudiante" + estudiante);
 
         ArancelEntity arancel= new ArancelEntity();
         arancel.setRutEstudiante(rut);
@@ -89,13 +92,16 @@ public class ArancelService {
 
         arancel.setTipoPago(tipoPago);
         arancel.setCantidadCuotas(cantidadCuotas);
-        System.out.println(arancel);
         arancelRepository.save(arancel);
     }
 
-
-
-
-
-
+    public boolean existeRutEnBaseDeDatos(String rut){
+        EstudianteEntity estudiante = estudianteService.obtenerEstudiantePorRut(rut);
+        if (estudiante == null){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 }

@@ -64,8 +64,8 @@ public class EstudianteService {
         estudiante.setExamenesRendidos(cantidadExamenes);
         estudianteRepository.save(estudiante);
 
-
-
     }
+
+
 }
 
