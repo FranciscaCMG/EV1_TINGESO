@@ -83,12 +83,30 @@
             color: #000;
             font-family: 'Calistoga', serif;
         }
+
+        h3{
+            font-size: 25px;
+            text-align:center;
+            line-height: 3;
+            margin-right: auto;
+            color: #6499E9;
+            font-family: 'Calistoga', serif;
+        }
+        a {
+            color: #ffffff;
+        }
+
+        a:hover {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
     </style>
 </head>
 <body>
-<header class="header">
+<header class="header" >
     <div class="logo">
-        <h1>Top Education</h1>
+        <h1><a href="/">Top Education</a></h1>
     </div>
     <nav>
     </nav>
@@ -106,19 +124,33 @@
             <th>Tipo de Pago</th>
             <th>Cantidad de Cuotas</th>
             <th>Generar Cuotas</th>
-
-
         </tr>
+
         </thead>
         <tbody>
-        <tr th:each="aranceles:${aranceles}">
-            <td th:text="${aranceles.rutEstudiante}"></td>
-            <td th:text="${aranceles.monto}"></td>
-            <td th:text="${aranceles.tipoPago}"></td>
-            <td th:text="${aranceles.cantidadCuotas}"></td>
-            <td><a href="/cuotas/listar"><button type="button" class="btn btn-primary">Ver Cuotas</button></a></td>
+        <tr th:each="arancel: ${aranceles}">
+            <td th:text="${arancel.rutEstudiante}"></td>
+            <td th:text="${arancel.monto}"></td>
+            <td th:text="${arancel.tipoPago}"></td>
+            <td th:text="${arancel.cantidadCuotas}"></td>
+            <td>
 
+                <form method="get" action="/cuotas/listar">
+                    <input type="hidden" name="rutEstudiante" th:value="${arancel.rutEstudiante}" />
+                    <button type="submit" class="btn btn-info">Ver Cuotas</button>
+                </form>
+
+                <form method="post" action="/cuotas/listar">
+                    <input type="hidden" name="ID" th:value="${arancel.ID}" />
+                    <input type="hidden" name="cantidadCuotas" th:value="${arancel.cantidadCuotas}" />
+                    <br>
+                    <button type="submit" class="btn btn-success">Generar Cuotas</button>
+                </form>
+
+            </td>
         </tr>
+        <br>
+        <b> <h3 th:text="${mensaje}"></h3></b>
 
         </tbody>
     </table>

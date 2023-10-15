@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ArancelService {
@@ -21,6 +22,16 @@ public class ArancelService {
 
     public List<ArancelEntity> obtenerArancel() {
         return arancelRepository.findAll();
+    }
+
+    public ArancelEntity obtenerArancelPorId(Integer idArancel) {
+        Optional<ArancelEntity> optionalArancel = arancelRepository.findById(idArancel);
+        if (optionalArancel.isPresent()) {
+            return optionalArancel.get();
+        } else {
+            // Puedes manejar el caso de que el arancel no se encuentra, por ejemplo, lanzando una excepción o devolviendo un valor predeterminado.
+            return null; // O cualquier otro manejo de error que prefieras.
+        }
     }
 
     public Integer descuentoTipoPago(String tipoPago, EstudianteEntity estudianteEntity){

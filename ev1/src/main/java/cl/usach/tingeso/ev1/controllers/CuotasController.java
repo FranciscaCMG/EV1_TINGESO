@@ -1,29 +1,69 @@
 package cl.usach.tingeso.ev1.controllers;
 
+import cl.usach.tingeso.ev1.entities.CuotaEntity;
+import cl.usach.tingeso.ev1.services.CuotaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/cuotas")
 public class CuotasController {
 
-        @RequestMapping("/listar")
-        public String listar(){
-            return "mostrarCuotas";
-        }
+    @Autowired
+    CuotaService cuotaService;
 
-        @RequestMapping("/agregar-cuotas")
-        public String agregar(){
-            return "ingresar-cuotas";
-        }
+    @GetMapping("/listar")
+    public String listar(Model model,@RequestParam(name = "rutEstudiante") String rut) {
+        List<CuotaEntity> cuotas = cuotaService.obtenerCuotaPorRut(rut);
+        model.addAttribute("cuotas", cuotas);
+        return "mostrarCuotas";
+    }
 
-        @RequestMapping("/editar-cuotas")
-        public String editar(){
-            return "editar-cuotas";
+    @PostMapping("/listar")
+    public String listarPost(@RequestParam(name = "ID") Integer arancelId, @RequestParam( name = "cantidadCuotas") Integer nroCuota,RedirectAttributes redirectAttributes) {
+        System.out.println("ID: " + arancelId);
+        for (int i = 1; i <= nroCuota; i++) {
+            System.out.println("nroCuota: " + i);
+            cuotaService.guardarCuota(arancelId, i);
         }
+        redirectAttributes.addFlashAttribute("mensaje", "¡ Cuota Generada Correctamente ! :)");
+        return "redirect:/arancel/listar";
+    }
 
-        @RequestMapping("/eliminar-cuotas")
-        public String eliminar(){
-            return "eliminar-cuotas";
-        }
+    @PostMapping("/pagarCuota")
+    public String pagarCuota(@RequestParam(name = "ID") Integer cuotaId, @RequestParam(name = "rutEstudiante") String rut, RedirectAttributes redirectAttributes) {
+        System.out.println("ID: " + cuotaId);
+        cuotaService.pagarCuota(cuotaId);
+        redirectAttributes.addFlashAttribute("mensaje", "¡ Cuota Pagada Correctamente ! :)");
+        return "redirect:/cuotas/listar?rutEstudiante="+ rut;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

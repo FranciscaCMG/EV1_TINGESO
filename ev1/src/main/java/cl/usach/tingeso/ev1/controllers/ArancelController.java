@@ -36,10 +36,7 @@ public class ArancelController {
                                @RequestParam("monto") Integer monto,
                                @RequestParam("tipoPago") String tipoPago,
                                @RequestParam("cantidadCuotas") Integer cantidadCuotas){
-        System.out.println("Rut: "+rutEstudiante);
-        System.out.println("Monto: "+monto);
-        System.out.println("Tipo de pago: "+tipoPago);
-        System.out.println("Cantidad de cuotas: "+cantidadCuotas);
+
         arancelService.guardarArancel(rutEstudiante, monto, tipoPago, cantidadCuotas);
         return "redirect:/arancel/listar";
     }

@@ -83,12 +83,21 @@
             color: #000;
             font-family: 'Calistoga', serif;
         }
+
+        a {
+            color: #ffffff;
+        }
+
+        a:hover {
+            color: #ffffff;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
 <header class="header">
     <div class="logo">
-        <h1>Top Education</h1>
+        <h1><a href="/">Top Education</a></h1>
     </div>
     <nav>
     </nav>
@@ -96,7 +105,6 @@
     <a class="btn-2" href="/estudiante/agregar-estudiante"><button>Ingresar nuevo Estudiante</button></a>
 </header>
 <div th:align = "center" class = "container my-2">
-
     <h2> Listado de Estudiantes</h2>
     <table th:border = "1" class = "content-table">
         <thead>
