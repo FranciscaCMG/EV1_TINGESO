@@ -101,6 +101,14 @@
             font-family: 'Calistoga', serif;
         }
 
+        h4{
+            font-size: 25px;
+            line-height: 3;
+            text-align:center;
+            color: darkslategrey;
+            font-family: 'Calistoga', serif;
+        }
+
         .btn{
             padding: 0.375rem 3rem;
         }
@@ -111,6 +119,14 @@
 
         a:hover {
             color: #78D6C6;
+        }
+
+        .btn-block {
+            display: block;
+            width: 80%;
+            border-radius: 0.5rem;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
@@ -134,10 +150,15 @@
                    type="submit" value="Cargar el archivo a la Base de Datos">
         </form>
         <br>
-        <u><b> <h2 th:text="${mensaje}"></h2></b></u>
+        <b> <h4 th:text="${mensaje}"></h4></b>
     </div>
 </div>
+<div>
+    <a class="btn" href="/resultados/dsctoPuntaje"><button type="button" class="btn btn-success btn-block" > Aplicar Descuentos </button></a>
+</div>
+
 <br>
+
 <hr>
 
 <div>

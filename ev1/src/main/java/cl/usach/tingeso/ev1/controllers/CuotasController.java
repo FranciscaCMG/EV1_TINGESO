@@ -30,9 +30,8 @@ public class CuotasController {
 
     @PostMapping("/listar")
     public String listarPost(@RequestParam(name = "ID") Integer arancelId, @RequestParam( name = "cantidadCuotas") Integer nroCuota,RedirectAttributes redirectAttributes) {
-        System.out.println("ID: " + arancelId);
+
         for (int i = 1; i <= nroCuota; i++) {
-            System.out.println("nroCuota: " + i);
             cuotaService.guardarCuota(arancelId, i);
         }
         redirectAttributes.addFlashAttribute("mensaje", "¡ Cuota Generada Correctamente ! :)");

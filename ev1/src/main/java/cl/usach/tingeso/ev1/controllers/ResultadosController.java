@@ -41,4 +41,13 @@ public class ResultadosController {
             model.addAttribute("datas", datas);
             return "resultadosFileInformation";
         }
+
+        @GetMapping("/dsctoPuntaje")
+        public String dsctoPuntaje() {
+            resultadosService.seleccionaRut();
+            return "redirect:/arancel/listar";
+        }
+
+
+
 }

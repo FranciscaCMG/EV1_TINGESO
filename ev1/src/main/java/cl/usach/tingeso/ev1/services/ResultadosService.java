@@ -1,6 +1,8 @@
 package cl.usach.tingeso.ev1.services;
 
+import cl.usach.tingeso.ev1.entities.CuotaEntity;
 import cl.usach.tingeso.ev1.entities.ResultadosEntity;
+import cl.usach.tingeso.ev1.repositories.CuotaRepository;
 import cl.usach.tingeso.ev1.repositories.ResultadosRepository;
 
 import lombok.Generated;
@@ -17,11 +19,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class ResultadosService {
     @Autowired
     ResultadosRepository resultadosRepository;
+
+    @Autowired
+    CuotaRepository cuotaRepository;
 
     private final Logger logg = LoggerFactory.getLogger(ResultadosService.class);
 
@@ -93,5 +99,67 @@ public class ResultadosService {
         newData.setFechaExamen(fecha);
         newData.setPuntaje(puntaje);
         guardarDatosResultados(newData);
+    }
+
+    public Integer promedioPruebas(String rut){
+
+        int suma = 0;
+        int promedio = 0;
+
+        List<ResultadosEntity> listResultados = resultadosRepository.findByRutPuntaje(rut);
+
+        for (ResultadosEntity resultado : listResultados){
+            suma = suma + Integer.parseInt(resultado.getPuntaje());
+        }
+
+        promedio = suma/ listResultados.size();
+
+        return promedio;
+
+    }
+
+    public void aplicarDscto(String rut){
+
+        List<CuotaEntity> listCuota = cuotaRepository.findByRutEstudiante(rut);
+
+        int promedio = 0;
+
+        for (CuotaEntity cuota : listCuota){
+            promedio = promedioPruebas(rut);
+
+            if(promedio >= 950 && promedio <= 1000){
+                cuota.setValorCuota(cuota.getValorCuota() - (cuota.getValorCuota() * 10 / 100));
+            }
+            else if(promedio >= 900 && promedio < 950){
+                cuota.setValorCuota(cuota.getValorCuota() - (cuota.getValorCuota() * 5 / 100));
+            }
+            else if(promedio >= 850 && promedio < 900){
+                cuota.setValorCuota(cuota.getValorCuota() - (cuota.getValorCuota() * 2 / 100));
+            }
+            else{
+                cuota.setValorCuota(cuota.getValorCuota());
+            }
+            cuotaRepository.save(cuota);
+        }
+    }
+
+    public void seleccionaRut(){
+
+        String rutEstudiante;
+
+        List<ResultadosEntity> listResultados = resultadosRepository.findAll();
+        List<String> listaRut = new ArrayList<>();
+
+        for (ResultadosEntity resultado : listResultados){
+             rutEstudiante = resultado.getRutPuntaje();
+
+             if (!listaRut.contains(rutEstudiante)){
+                 listaRut.add(rutEstudiante);
+             }
+        }
+
+        for (String rut : listaRut){
+            aplicarDscto(rut);
+        }
     }
 }

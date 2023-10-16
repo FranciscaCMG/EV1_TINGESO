@@ -99,7 +99,7 @@ public class ArancelService {
             switch (estudiante.getTipoColegioP()) {
                 case "Municipal" -> arancel.setCantidadCuotas(Math.min(cantidadCuotas, 10));
                 case "Subvencionado" -> arancel.setCantidadCuotas(Math.min(cantidadCuotas, 7));
-                case "Particular" -> arancel.setCantidadCuotas(Math.min(cantidadCuotas, 4));
+                case "Privado" -> arancel.setCantidadCuotas(Math.min(cantidadCuotas, 4));
             }
         }
         arancelRepository.save(arancel);
