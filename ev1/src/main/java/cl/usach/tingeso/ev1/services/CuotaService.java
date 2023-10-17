@@ -3,8 +3,6 @@ package cl.usach.tingeso.ev1.services;
 import cl.usach.tingeso.ev1.entities.ArancelEntity;
 import cl.usach.tingeso.ev1.repositories.CuotaRepository;
 import cl.usach.tingeso.ev1.entities.CuotaEntity;
-import cl.usach.tingeso.ev1.entities.EstudianteEntity;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,14 +27,13 @@ public class CuotaService {
         return cuotaRepository.findByRutEstudiante(rutEstudiante);
     }
 
-    public void guardarCuota( Integer idArancel,Integer nroCuota) {
+    public void guardarCuota(Integer idArancel, Integer nroCuota) {
 
         System.out.println("entre ");
         Integer valor;
         String rut = "";
         String fechaP = "";
         String estado = "No pagada";
-
 
         ArancelEntity arancel = arancelService.obtenerArancelPorId(idArancel);
         rut = arancel.getRutEstudiante();
@@ -45,14 +42,14 @@ public class CuotaService {
 
         System.out.println(cuotasExistentes);
         if (cuotasExistentes.isEmpty()) {
-            // Si no existen cuotas para el mismo rut y número de cuota, crear una nueva cuota
+            // Si no existen cuotas para el mismo rut y número de cuota, crear una nueva
+            // cuota
             CuotaEntity cuotaEntity = new CuotaEntity();
             cuotaEntity.setRutEstudiante(rut);
 
-
             cuotaEntity.setNroCuota(nroCuota);
             cuotaEntity.setValorCuota(valor);
-            cuotaEntity.setFechaVencimiento("2023-"+ String.valueOf(nroCuota+2) +"-05" ); // Fecha inicio clases
+            cuotaEntity.setFechaVencimiento("2023-" + String.valueOf(nroCuota + 2) + "-05"); // Fecha inicio clases
             cuotaEntity.setFechaPago(fechaP);
             cuotaEntity.setEstado(estado);
             cuotaRepository.save(cuotaEntity);
@@ -74,24 +71,21 @@ public class CuotaService {
         return cuotasAtrasadas;
     }
 
-    public Integer calculoInteres(Integer nroAtrasos){
+    public Integer calculoInteres(Integer nroAtrasos) {
         Integer interes = 0;
-        if (nroAtrasos == 1){
+        if (nroAtrasos == 1) {
             interes = 3;
-        }
-        else if(nroAtrasos == 2){
-            interes= 3;
-        }
-        else if(nroAtrasos == 3 ){
+        } else if (nroAtrasos == 2) {
             interes = 3;
-        }
-        else if(nroAtrasos >3){
+        } else if (nroAtrasos == 3) {
+            interes = 3;
+        } else if (nroAtrasos > 3) {
             interes = 6;
         }
         return interes;
     }
 
-    public void modificoMonto(List<CuotaEntity> listaCuotas, Integer interes){
+    public void modificoMonto(List<CuotaEntity> listaCuotas, Integer interes) {
         for (CuotaEntity cuotaEntity : listaCuotas) {
             if (cuotaEntity.getEstado().equals("Atrasada")) {
                 cuotaEntity.setValorCuota(cuotaEntity.getValorCuota() + (cuotaEntity.getValorCuota() * interes / 100));
@@ -99,18 +93,15 @@ public class CuotaService {
         }
     }
 
-    public String revisarFecha(String fechaVencimiento, String fechaPago, List<CuotaEntity> listaCuotas, Integer interes){
+    public String revisarFecha(String fechaVencimiento, String fechaPago, List<CuotaEntity> listaCuotas,
+            Integer interes) {
 
         String estado = "Pagada";
 
         String[] listVencimiento = fechaVencimiento.split("-");
         String[] listpago = fechaPago.split("-");
 
-        System.out.println(listVencimiento[0] + listVencimiento[1] + listVencimiento[2]);
-        System.out.println(listpago[0] + listpago[1] + listpago[2]);
-
-        if (Integer.parseInt(listVencimiento[0]) > Integer.parseInt(listpago[0])){
-            System.out.println("entre if");
+        if (Integer.parseInt(listVencimiento[0]) > Integer.parseInt(listpago[0])) {
             modificoMonto(listaCuotas, interes);
             return estado;
 
@@ -119,25 +110,22 @@ public class CuotaService {
             modificoMonto(listaCuotas, interes);
             return estado;
 
-        } else{
-            
-            if (Integer.parseInt(listVencimiento[1]) > Integer.parseInt(listpago[1])){
-                System.out.println("entre if 2");
+        } else {
+
+            if (Integer.parseInt(listVencimiento[1]) > Integer.parseInt(listpago[1])) {
                 modificoMonto(listaCuotas, interes);
                 return estado;
 
-            }else if (Integer.parseInt(listVencimiento[1]) < Integer.parseInt(listpago[1])) {
+            } else if (Integer.parseInt(listVencimiento[1]) < Integer.parseInt(listpago[1])) {
                 estado = "Atrasada";
                 modificoMonto(listaCuotas, interes);
                 return estado;
-            }
-            else{
-                if (Integer.parseInt(listVencimiento[2]) > Integer.parseInt(listpago[2])){
-                    System.out.println("entre if 3");
+            } else {
+                if (Integer.parseInt(listVencimiento[2]) > Integer.parseInt(listpago[2])) {
                     modificoMonto(listaCuotas, interes);
                     return estado;
 
-                } else{
+                } else {
                     estado = "Atrasada";
                     modificoMonto(listaCuotas, interes);
                     return estado;
@@ -146,12 +134,11 @@ public class CuotaService {
         }
     }
 
-
     public void pagarCuota(Integer idCuota) {
 
         CuotaEntity cuota = cuotaRepository.findById(idCuota).get();
 
-        String fechaVenci= cuota.getFechaVencimiento();
+        String fechaVenci = cuota.getFechaVencimiento();
         Integer nroAtrasos = cuotasAtrasadas(cuota.getRutEstudiante());
         Integer interes = calculoInteres(nroAtrasos);
 
@@ -160,10 +147,10 @@ public class CuotaService {
 
         List<CuotaEntity> listaCuotas = obtenerCuotaPorRut(cuota.getRutEstudiante());
 
-        if (cuota.getFechaPago().isEmpty()){
+        if (cuota.getFechaPago().isEmpty()) {
 
             cuota.setFechaPago(formato.format(fecha));
-            String estado = revisarFecha(fechaVenci,cuota.getFechaPago(), listaCuotas, interes);
+            String estado = revisarFecha(fechaVenci, cuota.getFechaPago(), listaCuotas, interes);
             cuota.setEstado(estado);
         }
         cuotaRepository.save(cuota);

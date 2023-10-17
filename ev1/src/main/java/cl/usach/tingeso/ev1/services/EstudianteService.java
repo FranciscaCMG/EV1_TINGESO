@@ -19,7 +19,6 @@ public class EstudianteService {
     @Autowired
     ResultadosRepository resultadosRepository;
 
-
     public List<EstudianteEntity> obtenerEstudiantes() {
         return estudianteRepository.findAll();
     }
@@ -28,8 +27,13 @@ public class EstudianteService {
         return estudianteRepository.findByRut(rut);
     }
 
+    public void eliminarEstudiante(String rut) {
+        EstudianteEntity estudiante = estudianteRepository.findByRut(rut);
+        estudianteRepository.delete(estudiante);
+    }
 
-    public void guardarEstudiante(String rut, String apellidos, String nombres, String fechanacimiento, String tipoColegioP, String nombreColegio, Integer anioEgreso){
+    public void guardarEstudiante(String rut, String apellidos, String nombres, String fechanacimiento,
+            String tipoColegioP, String nombreColegio, Integer anioEgreso) {
         EstudianteEntity estudiante = new EstudianteEntity();
         estudiante.setRut(rut);
         estudiante.setApellidos(apellidos);
@@ -41,8 +45,7 @@ public class EstudianteService {
         estudianteRepository.save(estudiante);
     }
 
-
-    public void promedioEstudiante(String rut){
+    public void promedioEstudiante(String rut) {
 
         Integer promedio = 0;
         Integer sumaPromedio = 0;
@@ -58,7 +61,7 @@ public class EstudianteService {
             cantidadExamenes += 1;
         }
 
-        promedio= sumaPromedio / cantidadExamenes;
+        promedio = sumaPromedio / cantidadExamenes;
 
         estudiante.setPromedio(promedio);
         estudiante.setExamenesRendidos(cantidadExamenes);
@@ -66,6 +69,4 @@ public class EstudianteService {
 
     }
 
-
 }
-
